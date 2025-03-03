@@ -30,7 +30,7 @@ model Restaurant {
 model MenuCategory {
   id           String     @id @default(uuid())
   name         String
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id]) // para fazer a referencia com a tabela de restaurante
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de restaurante
   restaurantId String
   products     Product[] // para fazer a referencia com a tabela de produtos
   createdAt    DateTime   @default(now())
@@ -45,9 +45,9 @@ model Product {
   imageUrl       String
   ingredients    String[]
   orderProducts  OrderProduct[] // para fazer a referencia com a tabela de pedidos
-  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id]) // para fazer a referencia com a tabela de restaurante
+  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de restaurante
   restaurantId   String
-  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id]) // para fazer a referencia com a tabela de categorias
+  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de categorias
   menuCategoryId String
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -58,7 +58,7 @@ model Order {
   total             Float
   status            OrderStatus
   consumptionMethod ConsumptionMethod
-  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id]) // para fazer a referencia com a tabela de restaurante
+  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de restaurante
   restaurantId      String
   orderProducts     OrderProduct[] // para fazer a referencia com a tabela de produtos
   createdAt         DateTime          @default(now())
@@ -67,9 +67,9 @@ model Order {
 
 model OrderProduct {
   id        String   @id @default(uuid())
-  product   Product  @relation(fields: [productId], references: [id]) // para fazer a referencia com a tabela de produtos
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de produtos
   productId String
-  order     Order    @relation(fields: [orderId], references: [id]) // para fazer a referencia com a tabela de pedidos
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de pedidos
   orderId   Int
   quantity  Int
   price     Float
