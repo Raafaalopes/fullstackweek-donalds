@@ -61,6 +61,8 @@ model Order {
   restaurant        Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade) // para fazer a referencia com a tabela de restaurante
   restaurantId      String
   orderProducts     OrderProduct[] // para fazer a referencia com a tabela de produtos
+  customerName      String
+  customerCpf       String
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 }
